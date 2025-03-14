@@ -17,6 +17,8 @@ app.get("/download/dlmp3", async (req, res) => {
         const info = await ytdl.getInfo(url);
         const title = info.videoDetails.title.replace(/[^\w\s]/gi, "");  // Clean filename
 
+        console.log("Downloading:", title); // Log the video title
+
         // Set headers for the response
         res.header("Content-Disposition", `attachment; filename="${title}.mp3"`);
         res.header("Content-Type", "audio/mpeg");
@@ -28,7 +30,7 @@ app.get("/download/dlmp3", async (req, res) => {
         }).pipe(res);
     } catch (error) {
         console.error("Download error:", error);  // Log the error for debugging
-        res.status(500).json({ error: "Error processing request" });
+        res.status(500).json({ error: error.message }); // Send a more detailed error response
     }
 });
 
