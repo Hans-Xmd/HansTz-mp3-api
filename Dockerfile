@@ -8,7 +8,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install npm dependencies
-RUN npm install
+RUN npm install && npm install ytdl-core
+
 
 # Copy the rest of the application code into the container
 COPY . .
